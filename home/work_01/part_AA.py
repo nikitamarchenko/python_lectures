@@ -3,18 +3,27 @@ __author__ = 'nmarchenko'
 import unittest
 
 
-def map_rq(function, iterator):
+# def map_rq(function, iterator):
+#     result = []
+#     i = iter(iterator)
+#     try:
+#         def rq(arg):
+#             result.append(function(arg))
+#             rq(next(i))
+#
+#         rq(next(i))
+#     except StopIteration:
+#         pass
+#
+#     return result
+
+def map_rq(function, iter):
     result = []
-    i = iter(iterator)
-    try:
-        def rq(arg):
-            result.append(function(arg))
-            rq(next(i))
-
-        rq(next(i))
-    except StopIteration:
-        pass
-
+    def rq(current_list):
+        if current_list:
+            result.append(function(current_list[0]))
+            rq(current_list[1:])
+    rq(list(iter))
     return result
 
 
